@@ -24,7 +24,7 @@ set<string> Clothing::keywords() const {
   set<string> brands = parseStringToWords(brand_);
   result = setUnion(result, brands);
 
-  result.insert(convToLower(size_));
+  //result.insert(convToLower(size_));
 
   return result;
 }

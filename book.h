@@ -19,9 +19,6 @@ public:
 
     void dump(ostream& os) const;
 
-    //string getISBN() const;
-    //string getAuthor() const;
-
 private:
 
     //book specific variables

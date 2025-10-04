@@ -19,9 +19,6 @@ public:
 
     void dump(ostream& os) const;
 
-    //string getGenre() const;
-    //string getRating() const;
-
 private:
 
     //book specific variables

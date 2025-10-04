@@ -17,7 +17,7 @@ std::set<std::string> parseStringToWords(string rawWords)
 {
 
   set<string> keywords;
-  string temp = "";
+  string temp = ""; // men's
 
   for (size_t i = 0; i < rawWords.size(); i++)
   {

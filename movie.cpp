@@ -23,7 +23,7 @@ set<string> Movie::keywords() const {
 
   result.insert(convToLower(genre_));
 
-  result.insert(convToLower(rating_));
+  //result.insert(convToLower(rating_));
 
   return result;
 }

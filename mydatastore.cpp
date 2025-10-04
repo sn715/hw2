@@ -31,8 +31,17 @@ void MyDataStore::addProduct(Product* p) {
   //add product to keywords 
   set<string> keywords = p->keywords();
 
+  //debug
+  cout << "debug: product " << p->getName() << endl;
+  cout << "debug: keywords: " << endl;
+  for (set<string>::iterator itt = keywords.begin(); itt != keywords.end(); ++itt) {
+    cout << *itt;
+  }
+  cout << endl;
+
   set<string>::iterator it;
   for (it = keywords.begin(); it != keywords.end(); ++it) {
+    //string lower = convToLower(*it);
     keywords_[*it].insert(p);
   }
 }
@@ -80,8 +89,9 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
     {
       if(keywords_.find(terms[i]) != keywords_.end())
       {
-        set<Product*> temp = keywords_[terms[i]];
-        results = setUnion(results, temp);
+        //set<Product*> temp = keywords_[terms[i]];
+        //results = setUnion(results, temp);
+        results = setUnion(results, keywords_[terms[i]]);
       }
     }
   }
@@ -112,7 +122,13 @@ void MyDataStore::dump(std::ostream& ofile) {
 
 void MyDataStore::addToCart(string username, Product* p) { // input parameter Product* p?
   //check if user exists
+
   string lower = convToLower(username);
+
+  if(users_.find(lower) == users_.end()) {
+    cout << "Invalid request" << endl;
+    return;
+  }
 
   carts_[lower].push_back(p);
 }
@@ -121,6 +137,11 @@ void MyDataStore::viewCart(string username) {
   
   //check for user
   string lower = convToLower(username);
+
+  if(users_.find(lower) == users_.end()) {
+  cout << "Invalid username" << endl;
+  return;
+  }
 
   vector<Product*>& cart = carts_[lower];
 
@@ -133,7 +154,7 @@ void MyDataStore::viewCart(string username) {
 }
 void MyDataStore::buyCart(string username) {
 
-  //check for user
+  /*check for user
   string lower = convToLower(username);
 
   User* user = users_[lower];
@@ -163,8 +184,34 @@ void MyDataStore::buyCart(string username) {
       if (*it == purchased[i])
       {
         cart.erase(it);
+        break;
       }
     }
   }
+  */
 
+  string lower = convToLower(username);
+
+  if (users_.find(lower) == users_.end()) {
+    cout << "Invalid username" << endl;
+    return;
+  }
+
+  User* user = users_[lower];
+  vector<Product*>& cart = carts_[lower];
+
+  vector<Product*>::iterator it = cart.begin();
+
+  while (it != cart.end()) {
+    Product* p = *it;
+
+    if(p->getQty() > 0 && user->getBalance() >= p->getPrice()) {
+      user->deductAmount(p->getPrice());
+      p->subtractQty(1);
+      it = cart.erase(it);
+    }
+    else {
+      ++it;
+    }
+  }
 }

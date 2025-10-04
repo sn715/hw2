@@ -19,9 +19,6 @@ public:
 
     void dump(ostream& os) const;
 
-    //string getSize() const;
-    //string getBrand() const;
-
 private:
 
     //book specific variables
