@@ -17,11 +17,16 @@ std::set<std::string> parseStringToWords(string rawWords)
 {
 
   set<string> keywords;
-  string temp = ""; // men's
+  string temp = ""; 
 
   for (size_t i = 0; i < rawWords.size(); i++)
   {
-    if (ispunct(rawWords[i])) {
+    
+    if (rawWords[i] == ' ' || rawWords[i] == '\t' || rawWords[i] == '\n' || 
+    rawWords[i] == '.' || rawWords[i] == ',' || rawWords[i] == '!' || 
+    rawWords[i] == '\'' || rawWords[i] == ';' || rawWords[i] == ':' || 
+    rawWords[i] == '-'|| rawWords[i] == '_' || rawWords[i] == '"'|| rawWords[i] == '&')
+    {
       if (temp.size() >= 2)
       {
         keywords.insert(convToLower(temp));

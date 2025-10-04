@@ -109,7 +109,6 @@ int main(int argc, char* argv[])
                 {
                     Product* p = hits[index - 1];
                     ds.addToCart(username, p);
-                    //cout << "Added to " << username << endl;
                 }
                 else {
                     cout << "Invalid request" << endl;
@@ -125,9 +124,6 @@ int main(int argc, char* argv[])
                 if (ss >> username) {
                     ds.viewCart(username);
                 }
-                //else {
-                  //  cout << "Invalid username" << endl;
-                //}
               
             }
             else if (cmd == "BUYCART") {
@@ -136,9 +132,6 @@ int main(int argc, char* argv[])
                 if (ss >> username) {
                     ds.buyCart(username);
                 }
-                //else {
-                  //  cout << "Invalid username" << endl;
-                //}
               
             }
 

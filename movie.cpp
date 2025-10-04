@@ -22,9 +22,6 @@ set<string> Movie::keywords() const {
   result = setUnion(result, names);
 
   result.insert(convToLower(genre_));
-
-  //result.insert(convToLower(rating_));
-
   return result;
 }
 

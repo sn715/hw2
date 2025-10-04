@@ -25,23 +25,13 @@ MyDataStore::~MyDataStore() {
 }
 
 void MyDataStore::addProduct(Product* p) {
-  //need to take in a product and add it to the datastore
   products_.push_back(p);
 
   //add product to keywords 
   set<string> keywords = p->keywords();
 
-  //debug
-  cout << "debug: product " << p->getName() << endl;
-  cout << "debug: keywords: " << endl;
-  for (set<string>::iterator itt = keywords.begin(); itt != keywords.end(); ++itt) {
-    cout << *itt;
-  }
-  cout << endl;
-
   set<string>::iterator it;
   for (it = keywords.begin(); it != keywords.end(); ++it) {
-    //string lower = convToLower(*it);
     keywords_[*it].insert(p);
   }
 }
@@ -49,7 +39,6 @@ void MyDataStore::addProduct(Product* p) {
 void MyDataStore::addUser(User* u) {
   string lower = convToLower(u->getName());
   users_[lower] = u;
-  //users_.insert({u->getName(), u}); // or users_[u->getName()] = u
 }
 
 std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int type) {
@@ -63,10 +52,6 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 
   if (type == 0) {
     //AND
-
-    //take the first term and save it in keywords
-    //iterate through the rest of the terms and save the intersection
-    //of that term with the rest of keywords
 
     if(keywords_.find(terms[0]) != keywords_.end()) 
     {
@@ -89,8 +74,6 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
     {
       if(keywords_.find(terms[i]) != keywords_.end())
       {
-        //set<Product*> temp = keywords_[terms[i]];
-        //results = setUnion(results, temp);
         results = setUnion(results, keywords_[terms[i]]);
       }
     }
@@ -120,8 +103,7 @@ void MyDataStore::dump(std::ostream& ofile) {
 
 }
 
-void MyDataStore::addToCart(string username, Product* p) { // input parameter Product* p?
-  //check if user exists
+void MyDataStore::addToCart(string username, Product* p) { 
 
   string lower = convToLower(username);
 
@@ -153,42 +135,6 @@ void MyDataStore::viewCart(string username) {
   }
 }
 void MyDataStore::buyCart(string username) {
-
-  /*check for user
-  string lower = convToLower(username);
-
-  User* user = users_[lower];
-  vector<Product*>& cart = carts_[lower];
-  vector<Product*> purchased;
-
-  for (size_t i = 0; i < cart.size(); i++)
-  {
-    Product* p = cart[i];
-
-    if (p->getQty() > 0) 
-    {
-      if (user->getBalance() >= p->getPrice()) 
-      {
-        user->deductAmount(p->getPrice());
-        p->subtractQty(1);
-        purchased.push_back(p);
-      }
-    }
-  }
-
-  for (size_t i = 0; i < purchased.size(); i++) 
-  {
-    vector<Product*>::iterator it;
-    for(it = cart.begin(); it != cart.end(); ++it)
-    {
-      if (*it == purchased[i])
-      {
-        cart.erase(it);
-        break;
-      }
-    }
-  }
-  */
 
   string lower = convToLower(username);
 
